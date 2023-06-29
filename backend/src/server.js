@@ -1,7 +1,18 @@
-const app = require('./app')
+const app = require('./app');
 
 require('dotenv').config();
 
-const PORT = process.env.PORT || 3333
+const conection = require('./models/conection');
 
-app.listen (3333, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 3333;
+
+conection
+  .sync({ force: false })
+  .then(() => {
+    console.log('Sync OK');
+    app.listen(`${PORT}`, () => console.log(`Server running on port ${PORT}`));
+  })
+
+  .catch((error) => {
+    console.error('Error sync:', error);
+  });

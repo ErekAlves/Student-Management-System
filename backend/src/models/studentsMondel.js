@@ -1,13 +1,9 @@
-const connection = require('./conection');
-
-
+const sequelize = require('./conection');
 
 const getAllStudents = async () => {
-    
-    const [students] =  await connection.execute('SELECT * FROM students')
+  const [students] = await sequelize.('SELECT * FROM students');
 
-    return students
-
+  return students;
 };
 
-module.exports = { getAllStudents}
+module.exports = { getAllStudents };
