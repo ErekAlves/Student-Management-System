@@ -13,8 +13,9 @@ const getAllStudents = async (req, res) => {
 
 const addStudents = async (req, res) => {
   try {
-    const { name, email, password, age, phoneNumber } = req.body;
+    const { username ,name, email, password, age, phoneNumber } = req.body;
     const students = await Students.create({
+      username,
       name,
       email,
       password,

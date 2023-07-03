@@ -1,7 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-
 const db = require('../database/conection');
-
 const Students = require('../models/Students');
 const Courses = require('../models/Courses');
 
