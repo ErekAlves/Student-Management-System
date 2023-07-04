@@ -6,7 +6,6 @@ const getAllCourses = async (req, res) => {
   try {
     const currentDate = new Date();
 
-    // Consulta para buscar todos os cursos disponíveis
     const courses = await Courses.findAll({
       where: {
         date: {
@@ -15,15 +14,18 @@ const getAllCourses = async (req, res) => {
       },
     });
 
-    // Consulta para buscar a contagem de inscrições por curso
     const enrollmentCounts = await Enrollment.findAll({
-      attributes: ['coursesId', [Sequelize.fn('COUNT', Sequelize.col('id')), 'enrollmentCount']],
+      attributes: [
+        'coursesId',
+        [Sequelize.fn('COUNT', Sequelize.col('id')), 'enrollmentCount'],
+      ],
       group: ['coursesId'],
     });
 
-    // Mapear os resultados para adicionar a contagem de inscrições a cada curso
     const coursesWithCount = courses.map((course) => {
-      const enrollmentCount = enrollmentCounts.find((count) => count.coursesId === course.id);
+      const enrollmentCount = enrollmentCounts.find(
+        (count) => count.coursesId === course.id
+      );
       return {
         id: course.id,
         description: course.description,

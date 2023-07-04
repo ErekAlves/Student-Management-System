@@ -1,4 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
 
 const db = require('../database/conection');
 
@@ -11,7 +12,7 @@ const Students = db.define('Students', {
   username: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
   },
   name: {
     type: DataTypes.STRING,
@@ -38,5 +39,11 @@ const Students = db.define('Students', {
     allowNull: false,
   },
 });
+
+Students.beforeCreate(async (student) => {
+  const passwordHash = await bcrypt.hash(student.password, 10);
+  student.password = passwordHash;
+});
+
 
 module.exports = Students;
