@@ -53,10 +53,10 @@ const addEnrollment = async (req, res) => {
 
 const cancelEnrollment = async (req, res) => {
   try {
-    const { enrollmentId } = req.params;
+    const { id } = req.params;
 
-    const enrollment = await Enrollment.findByPk(enrollmentId);
-
+    const enrollment = await Enrollment.findByPk(id);
+console.log(Enrollment.findByPk);
     if (!enrollment) {
       return res.status(404).json({ message: 'Enrollment not found' });
     }

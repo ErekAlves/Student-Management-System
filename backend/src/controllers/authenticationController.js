@@ -30,25 +30,4 @@ const studentLogin = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
-
-const logout =  (req, res) => {
- 
-  try {
-    const { username, password } = req.body;
-
-
-    const token = jwt.sign({ id: student.id }, process.env.JWT_PASS || '', {
-      expiresIn: true,
-    });
-
-    res.json({ username: studentLogin, token: token, message: 'Login successful' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Server Error');
-  }
-  res.json({ token: null, message: 'Session expired, please login again' });
-  res.clearCookie('jwt');
-  console.log('Session expired, please login again');
-};
-
-module.exports =  {studentLogin, logout};
+module.exports =  {studentLogin};
